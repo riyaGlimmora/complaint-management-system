@@ -12,4 +12,9 @@ const create = asyncHandler(async (req, res) => {
   res.status(201).json({ data: team });
 });
 
-module.exports = { list, create };
+const listStaff = asyncHandler(async (req, res) => {
+  const staff = await teamService.listTeamStaff(req.params.id);
+  res.status(200).json({ data: staff });
+});
+
+module.exports = { list, create, listStaff };

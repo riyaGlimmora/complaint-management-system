@@ -11,5 +11,6 @@ router.use(authenticate);
 
 router.get('/', authorize('admin', 'manager'), teamController.list);
 router.post('/', authorize('admin'), validateBody(teamValidation.create), teamController.create);
+router.get('/:id/staff', authorize('admin', 'manager'), teamController.listStaff);
 
 module.exports = router;
