@@ -49,20 +49,16 @@ npm run seed
 
 Creates three sample teams, four sample products mapped to those teams, and one admin account (`admin@glimmora.test` / `Admin@123`).
 
-To create your first **staff** or **manager** account, the quickest path during development is a direct SQL insert (a proper admin "create user" endpoint is a natural next addition — see the design doc's Phase 1 scope):
+To create your first **staff** or **manager** account, log in as the seeded admin and call the admin user-management endpoint:
 
-```sql
-INSERT INTO users (name, email, password_hash, role_id, team_id)
-SELECT 'Staff One', 'staff1@glimmora.test',
-       '$2a$10$<bcrypt-hash-here>',
-       (SELECT id FROM roles WHERE name = 'staff'),
-       (SELECT id FROM teams WHERE name = 'Hardware Support');
-```
-
-Generate a bcrypt hash quickly from the project root:
 ```bash
-node -e "console.log(require('bcryptjs').hashSync('YourPassword123', 10))"
+curl -X POST http://localhost:5000/api/v1/users \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -d '{"name":"Staff One","email":"staff1@glimmora.test","password":"Password123","role":"staff","teamId":"TEAM_UUID"}'
 ```
+
+Get a `TEAM_UUID` from `GET /teams` (admin/manager only). See `docs/API_DOCS.md` for the full `POST /users` reference.
 
 ## 6. Run the server
 

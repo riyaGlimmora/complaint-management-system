@@ -72,6 +72,33 @@ Any authenticated role. Lists active products.
 { "name": "Hardware Support", "leadId": "uuid" }
 ```
 
+### GET /teams/:id/staff  *(admin, manager)*
+Returns active staff/manager accounts in the team — used to populate the "Assign ticket" dropdown.
+```json
+{ "data": [ { "id": "uuid", "name": "Staff One", "email": "staff1@glimmora.test", "role_name": "staff" } ] }
+```
+
+---
+
+## Users *(admin only)*
+
+### POST /users
+Provisions a staff, manager, or admin account. (Customers self-register via `/auth/register` — this endpoint deliberately rejects `role: "customer"`.) `teamId` is required for `staff`/`manager`, ignored for `admin`.
+
+```json
+{ "name": "Staff One", "email": "staff1@glimmora.test", "password": "Password123", "role": "staff", "teamId": "uuid" }
+```
+Response `201`:
+```json
+{ "data": { "id": "uuid", "name": "Staff One", "email": "staff1@glimmora.test", "role": "staff", "teamId": "uuid" } }
+```
+
+### GET /users
+Optional query params: `teamId`, `role`. Used by the admin "Manage Users" screen.
+```
+GET /users?teamId=uuid&role=staff
+```
+
 ---
 
 ## Tickets
