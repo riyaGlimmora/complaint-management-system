@@ -9,7 +9,13 @@
     "dev": "nodemon src/server.js",
     "migrate": "node migrations/run.js",
     "seed": "node migrations/seed.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "test:unit": "jest --runInBand --testPathPattern=tests/unit",
+    "test:integration": "node tests/integration/helpers/dbGuard.js && jest --runInBand --testPathPattern=tests/integration"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 15000
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,7 +30,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "supertest": "^7.2.2"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -73,8 +73,31 @@ The API is now live at `http://localhost:5000/api/v1`. Check `GET /api/v1/health
 ## 7. Run tests
 
 ```bash
+# Unit tests — no database required, fast
+npm run test:unit
+
+# Integration tests — require a live PostgreSQL database
+# 1. Create a dedicated test DB (keeps dev data safe):
+psql -U postgres -c "CREATE DATABASE cms_test_db;"
+psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE cms_test_db TO cms_user;"
+
+# 2. Add TEST_DATABASE_URL to .env (see .env.example)
+
+# 3. Migrate the test DB schema:
+TEST_DATABASE_URL=postgres://cms_user:cms_password@localhost:5432/cms_test_db \
+  node migrations/run.js
+
+# 4. Run integration tests:
+npm run test:integration
+
+# Run the full suite (unit + integration):
 npm test
 ```
+
+Integration tests seed their own data in `beforeEach` and clear it too,
+so they are fully isolated from each other and from your dev data.
+If the database is unreachable, `npm run test:integration` exits with a
+clear skip message rather than a timeout.
 
 ## 8. Try it end to end
 
