@@ -122,9 +122,12 @@ async function search(filters, requestingUser) {
   const offsetIdx = values.length + 2;
 
   const dataSql = `
-    SELECT t.*, p.name AS product_name, s.name AS assigned_staff_name
+    SELECT t.*, p.name AS product_name,
+           c.name AS customer_name,
+           s.name AS assigned_staff_name
     FROM tickets t
     JOIN products p ON p.id = t.product_id
+    JOIN users c ON c.id = t.customer_id
     LEFT JOIN users s ON s.id = t.assigned_staff_id
     ${whereSql}
     ORDER BY t.created_at DESC

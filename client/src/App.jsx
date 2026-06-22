@@ -39,15 +39,17 @@ export default function App() {
               <Route path="/tickets" element={
                 <ProtectedRoute><TicketListPage /></ProtectedRoute>
               } />
-              <Route path="/tickets/:id" element={
-                <ProtectedRoute><TicketDetailPage /></ProtectedRoute>
-              } />
 
-              {/* Customer only */}
+              {/* Customer only — must be declared BEFORE /tickets/:id so the
+                  static segment "new" is matched before the dynamic :id param */}
               <Route path="/tickets/new" element={
                 <ProtectedRoute roles={['customer']}>
                   <CreateTicketPage />
                 </ProtectedRoute>
+              } />
+
+              <Route path="/tickets/:id" element={
+                <ProtectedRoute><TicketDetailPage /></ProtectedRoute>
               } />
 
               {/* Staff + upward: own dashboard */}
