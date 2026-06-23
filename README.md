@@ -23,18 +23,19 @@ cms/
 
 ## Status
 
-| Phase | Scope | Status |
-| --- | --- | --- |
-| 1 | DB schema, auth, users/roles/teams/products | ✅ Complete |
-| 2 | Ticket creation, auto-assignment, status transitions | ✅ Complete |
-| 3 | Ticket history, comments, search/filters | ✅ Complete |
-| 4 | Frontend: auth, ticket list/detail, role-based views | ✅ Complete |
-| 5 | Performance dashboard UI (Recharts) | ✅ Complete |
-| 6 | Integration tests (16 unit + 28 integration), docs finalized | ✅ Complete |
+| Phase | Scope                                                        | Status      |
+| ----- | ------------------------------------------------------------ | ----------- |
+| 1     | DB schema, auth, users/roles/teams/products                  | ✅ Complete |
+| 2     | Ticket creation, auto-assignment, status transitions         | ✅ Complete |
+| 3     | Ticket history, comments, search/filters                     | ✅ Complete |
+| 4     | Frontend: auth, ticket list/detail, role-based views         | ✅ Complete |
+| 5     | Performance dashboard UI (Recharts)                          | ✅ Complete |
+| 6     | Integration tests (16 unit + 28 integration), docs finalized | ✅ Complete |
 
 ## Quick Start
 
 **Backend:**
+
 ```bash
 cd server
 npm install
@@ -45,6 +46,7 @@ npm run dev                 # API live at http://localhost:5000/api/v1
 ```
 
 **Frontend** (in a new terminal):
+
 ```bash
 cd client
 npm install
@@ -52,8 +54,7 @@ cp .env.example .env        # VITE_API_BASE_URL=http://localhost:5000/api/v1
 npm run dev                 # App live at http://localhost:3000
 ```
 
-Then open `http://localhost:3000`. Log in as `admin@glimmora.test` / `Admin@123`,
-or register a new customer account.
+Then open http://localhost:3000 . Register a new customer account, or contact your administrator for staff/admin credentials.
 
 ## Testing
 
@@ -72,4 +73,3 @@ See `server/docs/SETUP_GUIDE.md` for how to set up a dedicated test database.
 - **API reference:** [`server/docs/API_DOCS.md`](server/docs/API_DOCS.md)
 - **Backend setup:** [`server/docs/SETUP_GUIDE.md`](server/docs/SETUP_GUIDE.md)
 - **Frontend guide:** [`client/README.md`](client/README.md)
-
