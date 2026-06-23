@@ -5,7 +5,7 @@ const Joi = require('joi');
 // 'customer' is deliberately excluded - customers self-register via /auth/register.
 const createStaffUser = Joi.object({
   name: Joi.string().min(2).max(150).required(),
-  email: Joi.string().email().required(),
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
   password: Joi.string().min(8).max(72).required(),
   role: Joi.string().valid('staff', 'manager', 'admin').required(),
   teamId: Joi.string()

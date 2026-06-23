@@ -34,7 +34,7 @@ async function seed() {
     );
 
     // Admin account (change the password immediately after first login in a real deployment)
-    const passwordHash = await bcrypt.hash('Admin@123', 10);
+    const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'Admin@123', 10);
     await client.query(
       `INSERT INTO users (name, email, password_hash, role_id)
        VALUES ('System Admin', 'admin@glimmora.test', $1, $2)

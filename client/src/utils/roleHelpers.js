@@ -26,11 +26,21 @@ export function allowedNextStatuses(currentStatus, role) {
 // Format Postgres interval (e.g. "1 day 03:12:00") into readable string.
 export function formatInterval(interval) {
   if (!interval) return '—';
-  const match = interval.match(/(\d+) day[s]? (\d{2}):(\d{2})/);
+  if (typeof interval === 'object') {
+    // PostgreSQL returns interval as { hours, minutes, seconds, days, ... }
+    const h = interval.hours || 0;
+    const m = interval.minutes || 0;
+    const d = interval.days || 0;
+    if (d > 0) return `${d}d ${h}h ${m}m`;
+    if (h > 0) return `${h}h ${m}m`;
+    return `${m}m`;
+  }
+  const str = String(interval);
+  const match = str.match(/(\d+) day[s]? (\d{2}):(\d{2})/);
   if (match) return `${match[1]}d ${match[2]}h ${match[3]}m`;
-  const hmatch = interval.match(/(\d{2}):(\d{2})/);
+  const hmatch = str.match(/(\d{2}):(\d{2})/);
   if (hmatch) return `${hmatch[1]}h ${hmatch[2]}m`;
-  return interval;
+  return str;
 }
 
 export function formatDate(iso) {

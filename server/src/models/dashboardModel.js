@@ -72,6 +72,7 @@ async function productAnalysis() {
             AVG(t.resolved_at - t.created_at) FILTER (WHERE t.resolved_at IS NOT NULL) AS avg_resolution_time
      FROM products p
      LEFT JOIN tickets t ON t.product_id = p.id
+     WHERE p.is_active = true
      GROUP BY p.id, p.name
      ORDER BY total_complaints DESC`
   );
